@@ -18,12 +18,12 @@
 
 
 
+
 > 웹 스크래핑 예시 1 
 
 👉  Facebook에서 뉴스기사 스크랩
 
-<img src = "./images/ex1.png" width="80%">
-
+<img src = "./images/ex1.png" width="70%">
 
 
 
@@ -31,4 +31,4 @@
 
 👉  Google Chorme에서 검색 항목 모두 스크래핑
 
-<img src ="./images/ex2.png" width="80%">
+<img src ="./images/ex2.png" width="70%">

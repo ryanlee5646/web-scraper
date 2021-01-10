@@ -114,7 +114,7 @@ $ pip install --upgrade pip
 
 &nbsp;
 
-### 5.BeautifulSoup 모듈 설치
+### 5. BeautifulSoup 모듈 설치
   
 참고: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 &nbsp;

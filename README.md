@@ -51,7 +51,7 @@ $ python3 -m venv .venv
 
 &nbsp;
 
-###2. 가상환경 실행(Virtual Environment Activate)
+### 2. 가상환경 실행(Virtual Environment Activate)
 
 ```shell
 $ source .venv/bin/activate

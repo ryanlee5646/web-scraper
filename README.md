@@ -134,14 +134,14 @@ from bs4 import BeautifulSoup
 
 URL = requests.get('URL~')
 
-## soup은 html 데이터를 추출하는 도구라고 하겠다.
+# soup은 html 데이터를 추출하는 도구라고 하겠다.
 soup = BeautifulSoup(URL.text, 'html.parser') 
-## 첫번째 인자값에는 추출한 url에 데이터를 text로 변환해줘야함
+# 첫번째 인자값에는 추출한 url에 데이터를 text로 변환해줘야함
 
-## prettify() 메서드는 html문서를 보기좋게 정렬해준다
+# prettify() 메서드는 html문서를 보기좋게 정렬해준다
 print(soup.prettify())
 
-## 자세한 기능은 참조한 url 참고
+# 자세한 기능은 참조한 url 참고
 
 ```
 &nbsp;

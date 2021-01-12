@@ -1,20 +1,11 @@
-import requests
-from bs4 import BeautifulSoup
+from indeed import extract_indeed_pages, extract_indeed_jobs
 
-indeed_url= requests.get("https://www.indeed.com/jobs?q=python&limit=50")
 
-indeed_soup = BeautifulSoup(indeed_url.text, 'html.parser')
+# 마지막 페이지를 가져오는 Function
+last_indeed_pages = extract_indeed_pages()
 
-pagination = indeed_soup.find("div", {"class":"pagination"})
+# 모든 일자리를 반환하는 함수
+indeed_jobs = extract_indeed_jobs(last_indeed_pages)
 
-# 모든 <a>태그 찾기
-links = pagination.find_all('a')
 
-pages = []
-for link in links[:-1]: # 마지막 태그는 삭제
-    # pages.append(link.find("span").string) # <span>태그에서 string만 가져오기
-    pages.append(int(link.string)) # 링크 전체에서 string만 가져오기
-    
-max_page = pages[-1] # 마지막 페이지 번호
-
-#### 다음 강의는 페이지당 limit 개수 부터
+#### 모든 페이지에 job title 추출

@@ -1,7 +1,7 @@
 ## Web-scraper for pyhton (Python 웹스크랩) 
 
 
- ![Generic badge](https://img.shields.io/badge/python-3.7.4-green.svg "노마드코더") ![Generic badge](https://img.shields.io/badge/edit-vscode-blue.svg ) ![Generic badge](https://img.shields.io/badge/env-virtualenv-green.svg )
+ ![Generic badge](https://img.shields.io/badge/python-3.7.4-green.svg "노마드코더") ![Generic badge](https://img.shields.io/badge/edit-vscode-blue.svg ) ![Generic badge](https://img.shields.io/badge/env-virtualenv-green.svg ) ![Generic badge](https://img.shields.io/badge/beautifulsoup-4.9.3-red.svg )
 
 참고자료: https://nomadcoders.co/python-for-beginners  
 
@@ -95,15 +95,14 @@ $ pip install --upgrade pip
 
  <img src ="./images/env1.png" width="70%">  
 
- &nbsp;
+
 
  👉 &nbsp; 모듈을 설치해준다.
 ```shell
  $ pip install requests
 ```
 
- &nbsp;
-
+ 
  👉 &nbsp; 기본 사용법
 ```python
  import requests

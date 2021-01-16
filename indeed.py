@@ -21,24 +21,44 @@ def extract_indeed_pages():
     max_page = pages[-1] # 마지막 페이지 번호
     return max_page 
 
+# Indeed 페이지에서 직업의 상세정보를 가져오는 메서드
+def extract_job(html):
+    title = html.find("h2", {"class": "title"}).find("a")["title"]
+    company = html.find("span", {"class":"company"})
+    company_anchor = company.find("a")
+    # 회사명 가져오기
+    if company_anchor is not None:
+        company = str(company_anchor.string)
+    else:
+        company = str(company.string)
+    company = company.strip()
+    # 장소 가져오기
+    location = html.find("div", {"class": "recJobLoc"})["data-rc-loc"]
+
+    # 직업id (페이지 이동을 위해)
+    job_id = html['data-jk']
+
+
+    return {
+        'title': title, 
+        'company':company, 
+        'location':location, 
+        'link':f'https://www.indeed.com/viewjob?jk={job_id}'
+    }
+
 
 def extract_indeed_jobs(last_pages):
+   
     jobs = []
-    # for page in range(last_pages):
-    result = requests.get(f"{URL}&start={0 * LIMIT}")
-    soup = BeautifulSoup(result.text, 'html.parser')
+    for page in range(last_pages):
+        print(f"Scrapping page {page}")
+        result = requests.get(f"{URL}&start={page * LIMIT}")
+        soup = BeautifulSoup(result.text, 'html.parser')
+    # 회사명 찾기
     results = soup.find_all("div", {"class": "jobsearch-SerpJobCard"})
     
     for result in results:
-        title = result.find("h2", {"class": "title"}).find("a")["title"]
-        company = result.find("span", {"class":"company"})
-        company_anchor = company.find("a")
-        
-        if company.find("a") is not None:
-            company = str(company_anchor.string)
-        else:
-            company = str(company.string)
-        company = company.strip()
-        print(f"title:{title} company:{company}")
+        job = extract_job(result)
+        jobs.append(job)
     return jobs
 

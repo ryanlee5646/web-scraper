@@ -1,12 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 
-
 LIMIT = 50 
 URL = f"https://www.indeed.com/jobs?q=python&limit={LIMIT}"
 
 # Indeed 페이지에서 마지막 페이지 번호 가져오는 메서드
-def extract_indeed_pages():
+def get_last_page():
     url= requests.get(URL)
     soup = BeautifulSoup(url.text, 'html.parser')
     pagination = soup.find("div", {"class":"pagination"})
@@ -25,19 +24,24 @@ def extract_indeed_pages():
 def extract_job(html):
     title = html.find("h2", {"class": "title"}).find("a")["title"]
     company = html.find("span", {"class":"company"})
-    company_anchor = company.find("a")
+    
     # 회사명 가져오기
-    if company_anchor is not None:
-        company = str(company_anchor.string)
+    if company:
+        company_anchor = company.find("a")
+        
+        if company_anchor is not None:
+            company = str(company_anchor.string)
+        else:
+            company = str(company.string)
+        company = company.strip()
     else:
-        company = str(company.string)
-    company = company.strip()
+        company = None
+    
     # 장소 가져오기
     location = html.find("div", {"class": "recJobLoc"})["data-rc-loc"]
 
-    # 직업id (페이지 이동을 위해)
+    # 직업id (link에 담을 변수)
     job_id = html['data-jk']
-
 
     return {
         'title': title, 
@@ -46,9 +50,7 @@ def extract_job(html):
         'link':f'https://www.indeed.com/viewjob?jk={job_id}'
     }
 
-
-def extract_indeed_jobs(last_pages):
-   
+def extract_jobs(last_pages):
     jobs = []
     for page in range(last_pages):
         print(f"Scrapping page {page}")
@@ -62,3 +64,9 @@ def extract_indeed_jobs(last_pages):
         jobs.append(job)
     return jobs
 
+def get_jobs():
+    # 마지막 페이지를 가져오는 Function
+    last_page = get_last_page()
+    # 모든 일자리를 반환하는 함수
+    jobs = extract_jobs(last_page)
+    return jobs

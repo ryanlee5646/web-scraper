@@ -102,7 +102,7 @@ $ pip install --upgrade pip
  $ pip install requests
 ```
 
- 
+
  👉 &nbsp; 기본 사용법
 ```python
  import requests
@@ -114,7 +114,7 @@ $ pip install --upgrade pip
 &nbsp;
 
 ### 5. BeautifulSoup 모듈 설치
-  
+
 참고: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 &nbsp;
 
@@ -144,3 +144,48 @@ print(soup.prettify())
 
 ```
 &nbsp;
+
+#### ❗️ **자주 사용하는 BeautifulSoup 함수**
+
+##### **`find()`와 `find_all()`**
+
+```python
+def get_last_page():
+    result = requests.get(URL)
+    soup = BeautifulSoup(result.text, "html.parser")
+    pages = soup.find("div", {"class": "s-pagination"}).find_all("a")
+```
+1. **`find()`** : 하나의 <태그>만 가져온다. 가져올 <태그>를 string 형태의 첫번째 인자값으로, <태그>를 특정할 수 있는 `class`나 `id`값이 있다면 마찬가지로 string형태로 인자값을 넣어준다. 
+
+2. **`find_all()`**: 모든 <태그>를 다 가져온다. 사용법은 위와 유사하다.
+
+&nbsp;
+
+##### `string`과 `get_text()`
+
+```python
+company, location = html.find("h3",{"class", "fc-black-700"}).find_all("span", recursive=False)
+# 원래 find_all을 사용하게 되면 <span>태그의 하위 level의 <span>태그까지 전부 가져오게된다. 
+# recursive 속성을 사용하면 같은 level의 태그만 가져온다(child태그는 가져오지않음)❗️ 
+
+print(company.string.strip(), location.string.strip())
+print(company.get_text(), location.get_text())
+```
+
+1. **`string`** : 문자열을 추출하기 위한 메서드이다. 정확하게 문자열을 추출하기 위해서는 항상 마지막 태그에 메서드를 사용해야 한다. 
+* <태그> 내 자식 태그가 둘 이상이면, 무엇을 반환해야 하는지 명확하지 않기 때문에 None을 반환한다.
+* 자식 <태그>가 하나이면서, 그 자식의 태그가 `.string`값을 가지고 있다면 문자열을 반환한다.
+    ```html
+    <span>Executive Solutions
+        <span class="s-tag bg-black-075 fs-category fs-fine fc-black-600 lh-lg">
+            via
+        </span>
+    Executive Solutions
+    </span> 
+    ```
+
+2. **`get_text()`** : 이 또한 문자열을 추출하기 위한 메서드이다. 
+* 한번에 현재 html 문서의 모든 텍스트를 추출할 수 있다. 
+* 조금 더 명확히 표현하면 `get_text()` 메서드는 현재 태그를 포함하여 모든 하위 태그를 제거하고 유니코드 텍스트만 들어있는 문자열을 반환한다. 
+* 비슷한 메서드로 `.text`가 있는데 문자열만 추출하고 싶을 경우 `text`를 이용하고, 다양한 인자값(`strip`, `separator`..등)을 넣어 변화를 주고 싶을 경우 `get_text()`를 이용한다.
+

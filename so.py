@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 LIMIT = 50
+# stackoverflow
 URL = f'https://stackoverflow.com/jobs?q=python'
 
 # 마지막 페이지 가져오기
@@ -12,6 +13,22 @@ def get_last_page():
     last_page = pages[-2].get_text(strip=True)
     return int(last_page)
 
+# stackoverflow 직업 상세정보 가져오기
+def extract_job(html):
+    title = html.find("h2",{"class", "mb4"}).find("a")["title"]
+     
+    # 원래 find_all을 사용하게 되면 <span>태그의 하위 level의 <span>태그까지 전부 가져오게된다. 
+    # recursive 속성을 사용하면 같은 level의 태그만 가져온다❗️ 
+    company, location = html.find("h3",{"class", "fc-black-700"}).find_all("span", recursive=False)
+    # print(company.string.strip(), location.string.strip())
+    print(company.get_text(strip=True).strip('-'), location.get_text())
+    return {
+        'title':title,
+        'company':company,
+        'location':location
+    }
+
+
 def extract_jobs(last_page):
     jobs = []
     for page in range(last_page):
@@ -20,8 +37,9 @@ def extract_jobs(last_page):
         soup = BeautifulSoup(result.text, "html.parser")
         results = soup.find_all("div",{"class":"-job"})
         for result in results:
-            print(result["data-jobid"])
-
+            job = extract_job(result)
+            jobs.append(job)            
+    return jobs
 
 def get_jobs():
     last_page = get_last_page()

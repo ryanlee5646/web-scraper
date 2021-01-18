@@ -34,6 +34,7 @@ def extract_job(html):
         else:
             company = str(company.string)
         company = company.strip()
+    # 회사명 없음
     else:
         company = None
     

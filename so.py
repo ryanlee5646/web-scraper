@@ -20,18 +20,22 @@ def extract_job(html):
     # 원래 find_all을 사용하게 되면 <span>태그의 하위 level의 <span>태그까지 전부 가져오게된다. 
     # recursive 속성을 사용하면 같은 level의 태그만 가져온다❗️ 
     company, location = html.find("h3",{"class", "fc-black-700"}).find_all("span", recursive=False)
-    # print(company.string.strip(), location.string.strip())
-    print(company.get_text(strip=True).strip('-'), location.get_text())
+    company = company.get_text(strip=True)
+    location = location.get_text(strip=True).strip("-").strip("\n").strip("\r") #stirp으로 해당 공백 제거
+    # 링크를 가져오기위한 job_id
+    job_id = html["data-jobid"]
     return {
         'title':title,
         'company':company,
-        'location':location
+        'location':location,
+        'link':f'https://stackoverflow.com/jobs/{job_id}/'
     }
 
 
 def extract_jobs(last_page):
     jobs = []
     for page in range(last_page):
+        print(f"Scrapping Stackoverflow: Page: {page}")
         result = requests.get(f"{URL}&pg={page+1}")
         # 페이지마다 스크랩
         soup = BeautifulSoup(result.text, "html.parser")
@@ -45,8 +49,7 @@ def get_jobs():
     last_page = get_last_page()
     jobs = extract_jobs(last_page)
     
-    
-    return []
+    return jobs
 
 
 get_jobs()

@@ -168,7 +168,8 @@ company, location = html.find("h3",{"class", "fc-black-700"}).find_all("span", r
 # 원래 find_all을 사용하게 되면 <span>태그의 하위 level의 <span>태그까지 전부 가져오게된다. 
 # recursive 속성을 사용하면 같은 level의 태그만 가져온다(child태그는 가져오지않음)❗️ 
 
-print(company.string.strip(), location.string.strip())
+# string.strip() 혹은 .get_text(strip=True)는 앞뒤 공백문자를 제거 
+print(company.string.strip(), location.string.strip()) 
 print(company.get_text(), location.get_text())
 ```
 

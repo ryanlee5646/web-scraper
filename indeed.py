@@ -37,10 +37,8 @@ def extract_job(html):
     # 회사명 없음
     else:
         company = None
-    
     # 장소 가져오기
     location = html.find("div", {"class": "recJobLoc"})["data-rc-loc"]
-
     # 직업id (link에 담을 변수)
     job_id = html['data-jk']
 

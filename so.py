@@ -50,6 +50,3 @@ def get_jobs():
     jobs = extract_jobs(last_page)
     
     return jobs
-
-
-get_jobs()

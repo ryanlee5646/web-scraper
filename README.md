@@ -189,5 +189,31 @@ print(company.get_text(), location.get_text())
 2. **`get_text()`** : 이 또한 문자열을 추출하기 위한 메서드이다. 
 * 한번에 현재 html 문서의 모든 텍스트를 추출할 수 있다. 
 * 조금 더 명확히 표현하면 `get_text()` 메서드는 현재 태그를 포함하여 모든 하위 태그를 제거하고 유니코드 텍스트만 들어있는 문자열을 반환한다. 
-* 비슷한 메서드로 `.text`가 있는데 문자열만 추출하고 싶을 경우 `text`를 이용하고, 다양한 인자값(`strip`, `separator`..등)을 넣어 변화를 주고 싶을 경우 **`get_text()`**를 이용한다.
+* 비슷한 메서드로 `.text`가 있는데 문자열만 추출하고 싶을 경우 `text`를 이용하고, 다양한 인자값(`strip`, `separator`..등)을 넣어 변화를 주고 싶을 경우 `get_text()`를 이용한다.
+
+
+
+### 6. Flask 설치
+
+참고: https://flask.palletsprojects.com/en/1.1.x/
+
+🙋🏻 Flask는 파이썬으로 웹사이트를 만들 수 있게 해주는 micro-framework
+
+* `@app.route`는 **데코레이터**(decorator)라고 하며 url응답이 오면 해당 함수를 실행한다.
+
+```python
+from flask import Flask
+
+app = Flask("SuperScrapper")
+
+@app.route('/')
+def home():
+    return 'Hello! Welcome!'
+
+@app.route("/contact")
+def potato():
+    return "Contact me!"
+
+app.run(host="0.0.0.0")
+```
 

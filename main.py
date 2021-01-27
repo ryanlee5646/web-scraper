@@ -1,15 +1,29 @@
 from indeed import get_jobs as get_indeed_jobs
 from so import get_jobs as get_so_jobs
 from save import save_to_file
+from flask import Flask
 
-# stackoverflow jobs
-so_jobs = get_so_jobs()
+app = Flask("SuperScrapper")
 
-# indeed_jobs
-indeed_jobs = get_indeed_jobs()
+@app.route('/')
+def home():
+    return 'Hello! Welcome!'
 
-jobs = so_jobs + indeed_jobs
-# jobs = indeed_jobs
+@app.route("/contact")
+def potato():
+    return "Contact me!"
 
-# CSV(Comma Seperated Values) 파일 만들기
-save_to_file(jobs)
+app.run(host="0.0.0.0")
+
+
+# # stackoverflow jobs
+# so_jobs = get_so_jobs()
+
+# # indeed_jobs
+# indeed_jobs = get_indeed_jobs()
+
+# jobs = so_jobs + indeed_jobs
+# # jobs = indeed_jobs
+
+# # CSV(Comma Seperated Values) 파일 만들기
+# save_to_file(jobs)

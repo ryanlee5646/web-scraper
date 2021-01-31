@@ -217,3 +217,11 @@ def potato():
 app.run(host="0.0.0.0")
 ```
 
+* `@app.route("/<username>")` 을 사용하면 함수에서 변수로 받아서 사용이 가능하다.
+
+```python
+@app.route("/<username>")
+def potato(username):
+    return f"Hello {username}! how are you doing!"
+```
+

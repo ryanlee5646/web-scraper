@@ -148,7 +148,7 @@ print(soup.prettify())
 
 #### ❗️ **자주 사용하는 BeautifulSoup 함수**
 
-##### **`find()`와 `find_all()`**
+##### **1. `find()`와 `find_all()`**
 
 ```python
 def get_last_page():
@@ -162,7 +162,7 @@ def get_last_page():
 
 &nbsp;
 
-##### `string`과 `get_text()`
+##### 2. `string`과 `get_text()`
 
 ```python
 company, location = html.find("h3",{"class", "fc-black-700"}).find_all("span", recursive=False)
@@ -199,6 +199,8 @@ print(company.get_text(), location.get_text())
 
 🙋🏻 Flask는 파이썬으로 웹사이트를 만들 수 있게 해주는 micro-framework
 
+##### 1. `@app.route` 
+
 * `@app.route`는 **데코레이터**(decorator)라고 하며 url응답이 오면 해당 함수를 실행한다.
 
 ```python
@@ -224,4 +226,88 @@ app.run(host="0.0.0.0")
 def potato(username):
     return f"Hello {username}! how are you doing!"
 ```
+
+##### 2. `render_template()`
+
+* `render_template("*.html")` 을 통하여 html 파일을 렌더링 할 수 있다.
+* 이 때 같은 경로안에 `templates` 폴더안에 생성
+
+```html
+potato.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Search</title>
+</head>
+<body>
+    <h1>Job Search</h1>
+    <form action="/report" method="get">
+        <input placeholder='Search for a job?' required name="word">
+        <button>Search</button>
+    </form>
+</body>
+</html>
+```
+
+```python
+# main.py
+@app.route("/")
+def home():
+    return render_template("potato.html")
+```
+
+##### 3. `request`
+
+* Flask의 `request` 를 통해 request(Url)의 변수를 가져올 수 있다.
+
+```python
+from flask import Flask, render_template, request
+
+@app.route("/report")
+def report():
+    word  = request.args.get('word')
+    return render_template("report.html", word=word, potato="sexy")
+```
+
+
+
+* 변수를 `render_template` 메서드 안에 `request` 를 통해 가져온 변수를 넘겨서 html에 바인딩
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Search</title>
+</head>
+<body>
+    <h1>Search Result</h1>
+    <h3>You are looking for {{word}}</h3>
+    {{potato}}
+</body>
+</html>
+```
+
+
+
+##### 4. `redirect`
+
+* `redirect` 는 해당요청이 존재하지 않거나 할 때 리다이렉트 하는 메서드
+
+```python
+@app.route("/report")
+def report():
+    word = request.args.get('word')
+
+    if word:
+        word = word.lower()
+    else: 
+        return redirect("/")
+    return render_template("report.html", word=word, potato="sexy")
+```
+
+
 

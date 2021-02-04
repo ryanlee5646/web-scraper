@@ -311,3 +311,27 @@ def report():
 
 
 
+5. ##### 5. `send_file()`
+
+* `send_file()` 은 `()`  안에 파일을 다운로드 하는 메서드이다.
+
+```python
+@app.route("/export")
+def export():
+    try:
+        word = request.args.get('word')
+        if not word:
+            raise Exception() # Exception()이 실행되면 아래의 except 구분 실행
+        print(word)
+        word = word.lower()
+        jobs = db.get(word)
+        print(jobs)
+        if not jobs:
+            raise Exception()
+        save_to_file(jobs)
+        return send_file("jobs.csv")
+    except:
+        return redirect("/")  
+app.run(host="0.0.0.0")
+```
+

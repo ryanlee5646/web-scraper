@@ -12,11 +12,13 @@ def report():
     word = request.args.get('word')
     if word:
         word = word.lower()
-        # jobs = get_jobs(word)
-        # print(jobs)
+        jobs = get_jobs(word)
+        print(jobs)
     else: 
         return redirect("/")
     return render_template("report.html", word=word, potato="sexy")
 
-
 app.run(host="0.0.0.0")
+
+
+

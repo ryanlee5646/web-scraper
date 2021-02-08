@@ -311,7 +311,7 @@ def report():
 
 
 
-5. ##### 5. `send_file()`
+##### 5. `send_file()`
 
 * `send_file()` 은 `()`  안에 파일을 다운로드 하는 메서드이다.
 

@@ -323,7 +323,7 @@ def export():
         if not word:
             raise Exception() # Exception()이 실행되면 아래의 except 구분 실행
         print(word)
-        word = word.lower()
+        word = word.lower() # 소문자로 변경
         jobs = db.get(word)
         print(jobs)
         if not jobs:

@@ -80,7 +80,7 @@ $ pip install --upgrade pip
 
 ### 4. requests 모듈 설치
 
-참고: https://requests.readthedocs.io/en/master/
+**참고**: https://requests.readthedocs.io/en/master/
 &nbsp;
 
  🙋🏻 &nbsp;requests 모듈은 HTTP 요청을 보내는 pyhton 모듈이다. 웹문서 뿐만아닌 API를 개발할 때도 유용하게 이용된다.

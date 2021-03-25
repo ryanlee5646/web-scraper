@@ -4,7 +4,7 @@ from exporter import save_to_file
 
 app = Flask("SuperScrapper")
 
-# Fake Database
+# Database
 db = {
     
 }

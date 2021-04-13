@@ -98,7 +98,7 @@ $ pip install --upgrade pip
 
 
 
- 👉 &nbsp; 모듈을 설치해준다.
+ 👉 &nbsp; 모듈을 설치해준다!
 ```shell
  $ pip install requests
 ```
